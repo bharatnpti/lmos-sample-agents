@@ -61,7 +61,7 @@ jobs:
           echo "Found modules: $MODULES"
       - name: Build and Push Docker images
         run: |
-          for module in "${modules[@]}"; do
+          for module in "${MODULES[@]}"; do
             version=$(grep '^version=' $module/gradle.properties | awk -F= '{print $2}')
             docker build --build-arg VERSION=$version -f $module/Dockerfile -t ghcr.io/${{ github.repository }}/$module:$version $module
             docker push ghcr.io/${{ github.repository }}/$module:$version
